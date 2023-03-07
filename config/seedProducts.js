@@ -254,4 +254,10 @@ const IvanAlbright = [
     price: 3782,
   },
 ];
-module.exports = charlesWhite;
+module.exports = {
+  charlesWhite,
+  GeorgiaOKeeffe,
+  JohnSingerSargent,
+  GeorgesSeurat,
+  IvanAlbright,
+};
