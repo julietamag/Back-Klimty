@@ -28,11 +28,20 @@ User.init(
       validate: {
         isEmail: true,
       },
+      UID: {
+        type:  S.STRING,
+      },
+      isAdmin: {
+        type: S.BOOLEAN,
+        allowNull: false
+      },
+      address: {
+        type: S.STRING
+      }
     }
   },
   { sequelize: db, modelName: "user" }
 );
-
 
 
 module.exports = User;
