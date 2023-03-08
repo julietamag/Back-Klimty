@@ -56,8 +56,6 @@ const GeorgiaOKeeffe = [
   {
     artist_display: "Georgia O'Keeffe",
     date_display: "1965",
-    image_id:
-    id: 100858,
     photo_url:
       "https://www.artic.edu/iiif/2/8fa4d1dd-b05f-eb8d-b83f-7b5dd65642db/full/843,/0/default.jpg",
     name: "Sky above Clouds IV",
@@ -67,7 +65,6 @@ const GeorgiaOKeeffe = [
   {
     artist_display: "Georgia O'Keeffe",
     date_display: "1919/21",
-    id: 24306,
     photo_url:
       "https://www.artic.edu/iiif/2/3ee54063-9d78-ee86-0103-b477d988a93f/full/843,/0/default.jpg",
     name: "Blue and Green Music",
@@ -77,8 +74,6 @@ const GeorgiaOKeeffe = [
   {
     artist_display: "Georgia O'Keeffe",
     date_display: "1929",
-    image_id:
-    id: 46327,
     photo_url:
       "https://www.artic.edu/iiif/2/86729761-235c-c900-5c07-2d0bdbe38947/full/843,/0/default.jpg",
     name: "Black Cross, New Mexico",
@@ -87,8 +82,6 @@ const GeorgiaOKeeffe = [
   {
     artist_display: "Georgia O'Keeffe",
     date_display: "1928",
-    image_id:
-    id: 24687,
     photo_url:
       "https://www.artic.edu/iiif/2/b3688c8c-06f2-2a35-56bb-19de1a05344e/full/843,/0/default.jpg",
     name: "Yellow Hickory Leaves with Daisy",
@@ -241,8 +234,7 @@ const MariaHelenaVieira = [
   {
     artist_display: "Maria Helena Vieira",
     date_display: "1936–37",
-
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/860c9087-86da-d738-6d6f-29959464bd92/full/843,/0/default.jpg",
     name: "Composition",
     price: 4894,
@@ -251,8 +243,7 @@ const MariaHelenaVieira = [
     artist_display:
       "Maria Helena Vieira da Silva\nFrench, born Portugal, 1908–1992",
     date_display: "1956",
-
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/3335b163-8cb5-cbec-8d8e-6d1159247c2d/full/843,/0/default.jpg",
     title: "Rotterdam",
     price: 9782,
@@ -261,7 +252,7 @@ const MariaHelenaVieira = [
     artist_display: "Maria Helena Vieira",
     date_display: "1971",
 
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/0cd244cf-b4c8-beb2-87b6-647648e8ccd1/full/843,/0/default.jpg",
     title: "Garden",
     price: 5939,
@@ -270,7 +261,7 @@ const MariaHelenaVieira = [
     artist_display: "Maria Helena Vieira",
     date_display: "1966",
 
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/a9e2fe96-46c6-4b1b-c60a-93cb9a315e3f/full/843,/0/default.jpg",
     title: "The Gardens No.2",
     price: 8753,
@@ -279,7 +270,7 @@ const MariaHelenaVieira = [
     artist_display: "Maria Helena Vieira",
     date_display: "1971",
 
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/bc8eab77-f126-acb5-aa05-f6dd128b294b/full/843,/0/default.jpg",
     name: "Blue, White, Black",
     price: 48,
@@ -290,7 +281,7 @@ const grantWood = [
   {
     artist_display: "Grant Wood",
     date_display: "1930",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/b272df73-a965-ac37-4172-be4e99483637/full/843,/0/default.jpg",
     name: "American Gothic",
     price: 1536,
@@ -299,7 +290,7 @@ const grantWood = [
   {
     artist_display: "Grant Wood",
     date_display: "1927",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/81bcd428-6d79-c3b5-703d-b4695127b958/full/843,/0/default.jpg",
     name: "Loch Vale",
     price: 116,
@@ -308,7 +299,7 @@ const grantWood = [
   {
     artist_display: "Grant Wood",
     date_display: "1940, published 1941",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/c1b8c878-3004-d0ad-032a-0e5b1c00322d/full/843,/0/default.jpg",
     name: "December Afternoon",
     price: 1599,
@@ -316,7 +307,7 @@ const grantWood = [
   {
     artist_display: "Grant Wood",
     date_display: "1940",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/6bcb5ff7-21ca-ff8f-6522-04210fbe373c/full/843,/0/default.jpg",
     name: "Family Doctor",
     price: 8499,
@@ -325,7 +316,7 @@ const grantWood = [
     artist_display: "Grant Wood",
     date_display: "1939",
     id: 117693,
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/1798f46c-9597-bc0f-fdcf-08c5bd59cc87/full/843,/0/default.jpg",
     name: "Fertility",
     price: 3126,
@@ -336,7 +327,7 @@ const andyWarhol = [
   {
     artist_display: "Andy Warhol",
     date_display: "1972",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/97cb5c4b-cce5-c4d8-f303-613ce92832c7/full/843,/0/default.jpg",
     name: "Mao",
     price: 9431,
@@ -344,7 +335,7 @@ const andyWarhol = [
   {
     artist_display: "Andy Warhol",
     date_display: "1967",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/89255d96-36c4-e941-8b13-a1b165a07a49/full/843,/0/default.jpg",
     name: "Marilyn Monroe (Marilyn)",
     price: 1018,
@@ -352,7 +343,7 @@ const andyWarhol = [
   {
     artist_display: "Andy Warhol\nAmerican, 1928–1987",
     date_display: "1963",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/362c0c2a-4576-2207-4ba9-2b87e6d0bad0/full/843,/0/default.jpg",
     title: "Liz #3 [Early Colored Liz]",
     price: 9107,
@@ -360,7 +351,7 @@ const andyWarhol = [
   {
     artist_display: "Andy Warhol",
     date_display: "1978",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/867641a6-6b70-ae7d-f3f8-e8210e56694e/full/843,/0/default.jpg",
     title: "Four Mona Lisas",
     price: 3809,
@@ -368,7 +359,7 @@ const andyWarhol = [
   {
     artist_display: "Andy Warhol",
     date_display: "1963",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/23bb6125-d75b-1648-dc91-8c2a45ed3d88/full/843,/0/default.jpg",
     title: "The Kiss (Bela Lugosi)",
     price: 5599,
