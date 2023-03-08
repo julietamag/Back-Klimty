@@ -1,5 +1,4 @@
 const express = require("express");
-const { Artist, Product } = require("../models");
 const router = express.Router();
 const { Artist, Product } = require("../models");
 const artists = require("../config/seedArtists.js");
@@ -19,6 +18,8 @@ router.get("/:id", (req, res, next) => {
     .then((results) => {
       if (!results) res.statusCode(404);
       res.send(results);
+    })
+  })
 
 router.get("/", (req, res, next) => {
   Artist.findAll()
@@ -28,6 +29,7 @@ router.get("/", (req, res, next) => {
     })
     .catch(next);
 });
+
 
 
 
