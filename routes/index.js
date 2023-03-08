@@ -4,11 +4,12 @@ const user = require("./user");
 const product = require("./product");
 const artist = require("./artist");
 const cart = require("./cart");
+const search = require('./search')
 
 router.use("/user", user);
 router.use("/product", product);
 router.use("/artist", artist);
 router.use("/cart", cart);
-
+router.use("/search", search);
 
 module.exports = router;
