@@ -18,23 +18,23 @@ User.init(
         return `${this.name} ${this.lastName}`;
       },
     },
+    uid: {
+      type: S.STRING,
+    },
+    isAdmin: {
+      type: S.BOOLEAN,
+      defaultValue: false 
+    },
+    address: {
+      type: S.STRING
+    },
     email: {
       type: S.STRING,
       allowNull: false,
-      unique: true, // FIREBASE?
+      unique: true,
       validate: {
         isEmail: true,
       },
-      UID: {
-        type:  S.STRING,
-      },
-      isAdmin: {
-        type: S.BOOLEAN,
-        allowNull: false
-      },
-      address: {
-        type: S.STRING
-      }
     }
   },
   { sequelize: db, modelName: "user" }

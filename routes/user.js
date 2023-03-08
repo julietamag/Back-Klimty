@@ -1,54 +1,50 @@
 const express = require("express");
-const { User } = require("../models")
-const {Op} = require("sequelize")
+const { User } = require("../models");
 const router = express.Router();
 
-router.post('/', (req, res) => {
-    const { name, lastName, email, UID, isAdmin, address } = req.body;
-    User.create({ name, lastName, email, UID, isAdmin, address }).then((newUser) => {
-        res.status(201).send(newUser)
+// GET PARA TRAER TODOS LOS USUARIOS
+
+router.get("/", (req, res) => {
+  User.findAll()
+    .then((newUser) => {
+      res.status(201).send(newUser);
     })
-    .catch((err) => res.status(400).send(err))
-    
-})
+    .catch((err) => res.status(400).send(err));
+});
 
-router.post('/login', (req, res) => {
-    User.findOrCreate({
-        where: {
-            [Op.and]: [
-            { UID: req.body.UID }, { email: req.body.email}
-        ]
-        }
-    }).then((logUser) => res.status(205).send(logUser))
-    .catch((err) => res.status(401).send({error: "password or email don't match"}))
-})
-
-router.put(`/edit/:id`, (req, res) => {
-    const {name, lastName, UID} = req.body
-    User.update({name: name, lastName: lastName, UID: UID}, {
-        where: { email: req.body.email}, returning: true, plain: true }).then((editUser) => res.status(201).send(editUser))
-    .catch(() => res.status(400).send({error: "failed to edit a"}))
-})
+// GET PARA BUSCAR UN USUARIO POR ID
 
 router.get(`/:id`, (req, res) => {
-    const { id } = req.params
-    User.findOne({where: { id: id}}).then((user) => res.status(200).send(user))
-    .catch((err) => res.status(400).send(err))
-})
+  const { id } = req.params;
+  User.findOne({ where: { id: id } })
+    .then((user) => res.status(200).send(user))
+    .catch((err) => res.status(404).send({ error: "failed to find the user" }));
+});
 
+// POST PARA CREAR EL USUARIO
 
-router.delete("/:id/logout", (req, res) => {
-    (req.session) ? req.session.destroy((err => {
-        if (err) {
-          res.status(400).send('Unable to log out')
-        } else {
-          res.status(200).send('Logout successful')
-        }
-      })) :  res.end()
+router.post("/", (req, res, next) => {
+  console.log("CONSOLE LOG DEL REQ BODY", req.body);
+  const { name, lastName, email, uid } = req.body;
+  User.findOrCreate({ where: { name, lastName, email, uid } })
+    .then((newUser) => {
+      res.status(201).send(newUser);
+    })
+    .catch(next);
+});
 
-})
+// PUT PARA EDITAR EL USUARIO
 
+router.put(`/edit/:id`, (req, res, next) => {
+  const { name, lastName, uid, email } = req.body;
+  User.findByPk(req.params.id)
+    .then((user) => {
+      user
+        .update({ name, lastName, uid, email })
+        .then((editUser) => res.status(201).send(editUser))
+        .catch(next);
+    })
+    .catch(next);
+});
 
-
-
-module.exports = router
+module.exports = router;
