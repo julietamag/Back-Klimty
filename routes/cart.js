@@ -52,7 +52,7 @@ router.post("/:userId/add/:productId", (req, res, next) => {
       const productIndex = cart.products.findIndex(
         (item) => item.productId === productId
       );
-      let arr = [];
+   
 
       if (productIndex === -1) {
         cart.update({
