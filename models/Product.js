@@ -18,13 +18,13 @@ Product.init(
     },
     category: {
       type: S.STRING,
-      allowNull: false,
     },
     photo_url: {
       type: S.STRING,
       defaultValue:
         "https://community.atlassian.com/t5/image/serverpage/image-id/127481i2A3E643B5F41B152?v=v2",
     },
+    // AMOUNT??? QUE CANTIDAD DE UN MISMO PRODUCTO TENGO EN EL CARRITO??
   },
   { sequelize: db, modelName: "product" }
 );

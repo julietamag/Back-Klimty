@@ -5,11 +5,11 @@ class Artist extends S.Model {}
 
 Artist.init(
   {
-    name: {
+    title: {
       type: S.STRING,
       allowNull: false,
     },
-    bio: {
+    description: {
       type: S.TEXT,
       allowNull: false,
     },
