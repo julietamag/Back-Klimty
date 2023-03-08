@@ -1,7 +1,7 @@
 const express = require("express");
 const { Artist, Product } = require("../models");
 const router = express.Router();
-const { Artist } = require("../models");
+const { Artist, Product } = require("../models");
 const artists = require("../config/seedArtists.js");
 
 
@@ -40,5 +40,7 @@ router.post("/", (req, res, next) => {
     .catch(next);
 });
 
+
 module.exports = router;
+
 
