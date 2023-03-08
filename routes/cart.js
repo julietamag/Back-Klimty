@@ -1,5 +1,6 @@
 const express = require("express");
 const { Cart, User, Product } = require("../models");
+
 const router = express.Router();
 
 // get user by id con include Cart ya me trae todos los carritos asociados a ese usario.
@@ -134,7 +135,8 @@ router.post("/:userId/delete/:productId", (req, res, next) => {
     .catch(next);
 });
 
-// NUEVO 
+
+// nuevo
 
 router.get("/:id", (req, res) => {
     const id = req.params.id;
@@ -182,5 +184,6 @@ router.get("/:id", (req, res) => {
       })
       .catch(() => res.status(400).send({ error: "failed to send the email" }));
   });
+
 
 module.exports = router;
