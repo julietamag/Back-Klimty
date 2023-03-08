@@ -142,7 +142,7 @@ const GeorgesSeurat = [
     date_display: "1884/86",
     photo_url:
       "https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/default.jpg",
-    title: "A Sunday on La Grande Jatte — 1884",
+    name: "A Sunday on La Grande Jatte — 1884",
     price: 8230,
   },
 
@@ -160,7 +160,7 @@ const GeorgesSeurat = [
     date_display: "1883",
     photo_url:
       "https://www.artic.edu/iiif/2/1db67905-d421-95bf-1e91-4b60dd776886/full/843,/0/default.jpg",
-    title: 'Final Study for "Bathers at Asnières"',
+    name: 'Final Study for "Bathers at Asnières"',
     price: 6680,
   },
 
@@ -245,7 +245,7 @@ const MariaHelenaVieira = [
     date_display: "1956",
     photo_url:
       "https://www.artic.edu/iiif/2/3335b163-8cb5-cbec-8d8e-6d1159247c2d/full/843,/0/default.jpg",
-    title: "Rotterdam",
+    name: "Rotterdam",
     price: 9782,
   },
   {
@@ -254,7 +254,7 @@ const MariaHelenaVieira = [
 
     photo_url:
       "https://www.artic.edu/iiif/2/0cd244cf-b4c8-beb2-87b6-647648e8ccd1/full/843,/0/default.jpg",
-    title: "Garden",
+    name: "Garden",
     price: 5939,
   },
   {
@@ -263,7 +263,7 @@ const MariaHelenaVieira = [
 
     photo_url:
       "https://www.artic.edu/iiif/2/a9e2fe96-46c6-4b1b-c60a-93cb9a315e3f/full/843,/0/default.jpg",
-    title: "The Gardens No.2",
+    name: "The Gardens No.2",
     price: 8753,
   },
   {
@@ -315,7 +315,6 @@ const grantWood = [
   {
     artist_display: "Grant Wood",
     date_display: "1939",
-    id: 117693,
     photo_url:
       "https://www.artic.edu/iiif/2/1798f46c-9597-bc0f-fdcf-08c5bd59cc87/full/843,/0/default.jpg",
     name: "Fertility",
@@ -345,7 +344,7 @@ const andyWarhol = [
     date_display: "1963",
     photo_url:
       "https://www.artic.edu/iiif/2/362c0c2a-4576-2207-4ba9-2b87e6d0bad0/full/843,/0/default.jpg",
-    title: "Liz #3 [Early Colored Liz]",
+    name: "Liz #3 [Early Colored Liz]",
     price: 9107,
   },
   {
@@ -353,7 +352,7 @@ const andyWarhol = [
     date_display: "1978",
     photo_url:
       "https://www.artic.edu/iiif/2/867641a6-6b70-ae7d-f3f8-e8210e56694e/full/843,/0/default.jpg",
-    title: "Four Mona Lisas",
+    name: "Four Mona Lisas",
     price: 3809,
   },
   {
@@ -361,7 +360,7 @@ const andyWarhol = [
     date_display: "1963",
     photo_url:
       "https://www.artic.edu/iiif/2/23bb6125-d75b-1648-dc91-8c2a45ed3d88/full/843,/0/default.jpg",
-    title: "The Kiss (Bela Lugosi)",
+    name: "The Kiss (Bela Lugosi)",
     price: 5599,
   },
 ];
@@ -373,6 +372,6 @@ module.exports = {
   GeorgesSeurat,
   IvanAlbright,
   MariaHelenaVieira,
-  andyWarhol,
   grantWood,
+  andyWarhol,
 };

@@ -12,12 +12,12 @@ Cart.init(
     total_amount: {
       type: S.VIRTUAL,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
     },
     products: {
-      type: Sequelize.DataTypes.JSONB,
+      type: S.DataTypes.JSONB,
       defaultValue: [],
-    }
+    },
   },
   { sequelize: db, modelName: "cart" }
 );
