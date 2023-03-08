@@ -78,28 +78,24 @@ router.post("/:userId/add/:productId", (req, res, next) => {
 // Delete product by ID from cart
 //FRONT!! mandar dentro de la ruta el ID del USER y el ID del PRODUCT a eliminar
 router.post("/:userId/delete/:productId", (req, res, next) => {
-    const { userId, productId } = req.params;
-  
-    User.findByPk(userId).then((user) => {
-      if (!user) res.status(404).send("User not found");
-    });
-    Product.findByPk(productId).then((product) => {
-      if (!product) res.status(404).send("User not found");
-    });
-  
-    Cart.findOne({
-      where: { userId, state: true },
-    })
-      .then((cart) => {
-        const productIndex = cart.products.findIndex(
-          (item) => item.productId === productId
-        );
-        
-  
-        if (cart.products[productIndex].quantity === 1) {
-            const updatedProducts = cart.products.filter(product => product !== cart.products[productIndex])
-            cart.update({ products: updatedProducts });
-        } else {
+  const { userId, productId } = req.params;
+
+  User.findByPk(userId).then((user) => {
+    if (!user) res.status(404).send("User not found");
+  });
+  Product.findByPk(productId).then((product) => {
+    if (!product) res.status(404).send("User not found");
+  });
+
+  Cart.findOne({
+    where: { userId, state: true },
+  })
+    .then((cart) => {
+      const productIndex = cart.products.findIndex(
+        (item) => item.productId === productId
+      );
+
+        if (cart.products[productIndex].quantity > 1) {
           const updatedProducts = cart.products.map((product, index) => {
             if (index === productIndex) {
               return { ...product, quantity: product.quantity - 1 };
@@ -107,14 +103,19 @@ router.post("/:userId/delete/:productId", (req, res, next) => {
               return product;
             }
           });
-  
+          cart.update({ products: updatedProducts });
+        } else {
+          const updatedProducts = cart.products.filter(
+            (product) => product.productId !== productId
+          );
           cart.update({ products: updatedProducts });
         }
-  
-        res.send(cart);
-      })
-      .catch(next);
-  });
+      
+
+      res.send(cart);
+    })
+    .catch(next);
+});
 
 // nuevo
 
