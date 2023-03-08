@@ -18,7 +18,6 @@ Product.init(
     },
     category: {
       type: S.STRING,
-      allowNull: false,
     },
     photo_url: {
       type: S.STRING,
