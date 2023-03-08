@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Product, Artist } = require("../models");
+const { Product } = require("../models");
 const {
   charlesWhite,
   GeorgiaOKeeffe,
@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   Product.bulkCreate(
-    charlesWhite.map((artwork) => ({ ...artwork, artistId: 1 }))
+    charlesWhite.map((artwork) => ({ ...artwork, artistId: 2 }))
   )
     .then((createdProducts) => {
       return res.status(201).send(createdProducts);

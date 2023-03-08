@@ -15,7 +15,8 @@ Cart.init(
       defaultValue: 0
     },
     products: {
-        type: S.ARRAY(S.INTEGER) // or STRING?
+      type: Sequelize.DataTypes.JSONB,
+      defaultValue: [],
     }
   },
   { sequelize: db, modelName: "cart" }

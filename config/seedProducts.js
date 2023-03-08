@@ -2,7 +2,7 @@ const charlesWhite = [
   {
     artist_display: "Charles White",
     date_display: "1953",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/80fa6e5f-e02a-57b6-c007-8359e750d36d/full/843,/0/default.jpg",
     name: "Harvest Talk",
     price: 7507,
@@ -10,7 +10,7 @@ const charlesWhite = [
   {
     artist_display: "Charles White",
     date_display: "1942",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/b29b7f71-2098-9fc7-16cf-05ff99f0afdc/full/843,/0/default.jpg",
     name: "This, My Brother",
     price: 2709,
@@ -18,7 +18,7 @@ const charlesWhite = [
   {
     artist_display: "Charles White",
     date_display: "1937–42",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/c30126e9-55f1-3e3e-b017-15c8de78e0fc/full/843,/0/default.jpg",
     name: "Sketchbook",
     price: 7938,
@@ -27,7 +27,7 @@ const charlesWhite = [
   {
     artist_display: "Charles White",
     date_display: "1950",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/937b6ca0-8224-f17a-2991-3cf539b1ba8b/full/843,/0/default.jpg",
     name: "Portrait of a Woman",
     price: 2753,
@@ -47,7 +47,7 @@ const GeorgiaOKeeffe = [
   {
     artist_display: "Georgia O'Keeffe",
     date_display: "1931",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/2d695bad-1205-6185-c3aa-3fd42210dbf9/full/843,/0/default.jpg",
     name: "Cow's Skull with Calico Roses",
     price: 7479,
@@ -57,6 +57,8 @@ const GeorgiaOKeeffe = [
     artist_display: "Georgia O'Keeffe",
     date_display: "1965",
     image_id:
+    id: 100858,
+    photo_url:
       "https://www.artic.edu/iiif/2/8fa4d1dd-b05f-eb8d-b83f-7b5dd65642db/full/843,/0/default.jpg",
     name: "Sky above Clouds IV",
     price: 8409,
@@ -65,7 +67,8 @@ const GeorgiaOKeeffe = [
   {
     artist_display: "Georgia O'Keeffe",
     date_display: "1919/21",
-    image_id:
+    id: 24306,
+    photo_url:
       "https://www.artic.edu/iiif/2/3ee54063-9d78-ee86-0103-b477d988a93f/full/843,/0/default.jpg",
     name: "Blue and Green Music",
     price: 9976,
@@ -75,6 +78,8 @@ const GeorgiaOKeeffe = [
     artist_display: "Georgia O'Keeffe",
     date_display: "1929",
     image_id:
+    id: 46327,
+    photo_url:
       "https://www.artic.edu/iiif/2/86729761-235c-c900-5c07-2d0bdbe38947/full/843,/0/default.jpg",
     name: "Black Cross, New Mexico",
     price: 3574,
@@ -83,6 +88,8 @@ const GeorgiaOKeeffe = [
     artist_display: "Georgia O'Keeffe",
     date_display: "1928",
     image_id:
+    id: 24687,
+    photo_url:
       "https://www.artic.edu/iiif/2/b3688c8c-06f2-2a35-56bb-19de1a05344e/full/843,/0/default.jpg",
     name: "Yellow Hickory Leaves with Daisy",
     price: 2248,
@@ -93,7 +100,7 @@ const JohnSingerSargent = [
   {
     artist_display: "John Singer Sargent",
     date_display: "1907",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/3f9aa9db-61e1-7060-fdb0-bfd7e41ddd08/full/843,/0/default.jpg",
     name: "The Fountain, Villa Torlonia, Frascati, Italy",
     price: 4919,
@@ -102,7 +109,7 @@ const JohnSingerSargent = [
   {
     artist_display: "John Singer Sargent",
     date_display: "1897",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/074c1b1b-fe92-01ce-9e62-cc99369142dd/full/843,/0/default.jpg",
     name: "Mrs. George Swinton (Elizabeth Ebsworth)",
     price: 470,
@@ -111,7 +118,7 @@ const JohnSingerSargent = [
   {
     artist_display: "John Singer Sargent",
     date_display: "1882",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/c6da9f8c-643b-f331-0f8f-a9b6a844caf6/full/843,/0/default.jpg",
     name: "Madame Paul Escudier (Louise Lefevre)",
     price: 557,
@@ -120,7 +127,7 @@ const JohnSingerSargent = [
   {
     artist_display: "John Singer Sargent",
     date_display: "1891",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/e6dd6199-c245-d1b4-a997-ce89eafb48ca/full/843,/0/default.jpg",
     name: "Life Study (Study of an Egyptian Girl)",
     price: 9498,
@@ -129,7 +136,7 @@ const JohnSingerSargent = [
   {
     artist_display: "John Singer Sargent",
     date_display: "1880/82",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/8cdc812d-5db0-63a1-8579-eb64fc6884ca/full/843,/0/default.jpg",
     name: "Venetian Glass Workers",
     price: 6180,
@@ -140,7 +147,7 @@ const GeorgesSeurat = [
   {
     artist_display: "Georges Seurat",
     date_display: "1884/86",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/default.jpg",
     title: "A Sunday on La Grande Jatte — 1884",
     price: 8230,
@@ -149,7 +156,7 @@ const GeorgesSeurat = [
   {
     artist_display: "Georges Seurat",
     date_display: "1884",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/081be15c-8812-c174-eeb2-cf318a2e67cf/full/843,/0/default.jpg",
     name: 'Oil Sketch for "A Sunday on La Grande Jatte — 1884"',
     price: 2554,
@@ -158,7 +165,7 @@ const GeorgesSeurat = [
   {
     artist_display: "Georges Seurat",
     date_display: "1883",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/1db67905-d421-95bf-1e91-4b60dd776886/full/843,/0/default.jpg",
     title: 'Final Study for "Bathers at Asnières"',
     price: 6680,
@@ -167,7 +174,7 @@ const GeorgesSeurat = [
   {
     artist_display: "Georges Seurat",
     date_display: "1884/85",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/8769be30-7bda-37f2-16a8-30e5396d47dc/full/843,/0/default.jpg",
     name: "Seated Woman with a Parasol (study for La Grande Jatte)",
     price: 6403,
@@ -176,7 +183,7 @@ const GeorgesSeurat = [
   {
     artist_display: "Georges Seurat",
     date_display: "1884",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/d5ebfc97-c87c-b3ae-816f-5c8b519a082c/full/843,/0/default.jpg",
     name: "Trees (study for La Grande Jatte)",
     price: 2799,
@@ -187,7 +194,7 @@ const IvanAlbright = [
   {
     artist_display: "Ivan Albright",
     date_display: "1943–44",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/aa2b57e9-3773-03c1-0fb4-0135e7358dc6/full/843,/0/default.jpg",
     name: "Picture of Dorian Gray",
     price: 3392,
@@ -196,7 +203,7 @@ const IvanAlbright = [
   {
     artist_display: "Ivan Albright",
     date_display: "1931–41",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/0ecc7b1a-70b3-7ac6-1a46-3401d0963aa6/full/843,/0/default.jpg",
     name: "That Which I Should Have Done I Did Not Do (The Door)",
     price: 7551,
@@ -205,7 +212,7 @@ const IvanAlbright = [
   {
     artist_display: "Ivan Albright",
     date_display: "1929–30",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/2d43ebe4-89aa-ae2d-6fd6-085bb6b77ee0/full/843,/0/default.jpg",
     name: "Into the World There Came a Soul Called Ida",
     price: 4253,
@@ -214,7 +221,7 @@ const IvanAlbright = [
   {
     artist_display: "Ivan Albright",
     date_display: "1970/74",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/5e8ff889-2138-0a5c-267e-c938169285cd/full/843,/0/default.jpg",
     name: "A Face from Georgia",
     price: 1417,
@@ -223,7 +230,7 @@ const IvanAlbright = [
   {
     artist_display: "Ivan Albright",
     date_display: "1930–31",
-    image_id:
+    photo_url:
       "https://www.artic.edu/iiif/2/7893ede4-351d-f37d-c4fe-51a3fd967de8/full/843,/0/default.jpg",
     name: "And Man Created God in His Own Image",
     price: 3782,
