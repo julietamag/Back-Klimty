@@ -22,7 +22,7 @@ router.get(`/:id`, (req, res) => {
 });
 
 // POST PARA CREAR EL USUARIO
-
+// pasar info de el usuario a crear por body (name, lastName, uid, email)
 router.post("/", (req, res, next) => {
   const { name, lastName, email, uid } = req.body;
   User.findOrCreate({ where: { name, lastName, email, uid } })
@@ -33,7 +33,7 @@ router.post("/", (req, res, next) => {
 });
 
 // PUT PARA EDITAR EL USUARIO
-
+// pasar lo que se quiere modificar por body (name, lastName, uid, email)
 router.put(`/edit/:id`, (req, res, next) => {
   const { name, lastName, uid, email } = req.body;
   User.findByPk(req.params.id)

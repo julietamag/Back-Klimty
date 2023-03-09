@@ -31,6 +31,7 @@ const artists = [
   andyWarhol,
 ];
 
+// SEED
 router.post("/", async (req, res, next) => {
   const createdProducts = [];
   let artistId = 1;
@@ -51,8 +52,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// ruta para buscar producto por ID
-
+// GET product por ID
 router.get("/:id", (req, res, next) => {
   Product.findOne({
     where: {

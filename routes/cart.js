@@ -156,7 +156,7 @@ router.post("/:userId/edit/:productId", (req, res, next) => {
 
 
 
-// nuevo
+// IGNORAR =>
 
 router.post("/:cartId/:productId", (req, res) => {
   const id = req.params.cartId;

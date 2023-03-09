@@ -3,7 +3,6 @@ const router = express.Router();
 const { Artist, Product } = require("../models");
 const artists = require("../config/seedArtists.js");
 
-
 // GET all info about artist by id
 // FRONT!! => deben enviar el id del artista solicitado por parametro
 router.get("/:id", (req, res, next) => {
@@ -14,26 +13,22 @@ router.get("/:id", (req, res, next) => {
     include: {
       model: Product,
     },
-  })
-    .then((results) => {
-      if (!results) res.statusCode(404);
-      res.send(results);
-    })
-  })
+  }).then((results) => {
+    if (!results) res.statusCode(404);
+    res.send(results);
+  });
+});
 
+// GET all info about ALL artist 
 router.get("/", (req, res, next) => {
   Artist.findAll()
     .then((artists) => {
       return res.send(artists);
-
     })
     .catch(next);
 });
 
-
-
-
-
+// SEED
 router.post("/", (req, res, next) => {
   Artist.bulkCreate(artists)
     .then((createdArtists) => {
@@ -42,7 +37,4 @@ router.post("/", (req, res, next) => {
     .catch(next);
 });
 
-
 module.exports = router;
-
-
