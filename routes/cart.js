@@ -52,7 +52,6 @@ router.post("/:userId/add/:productId", (req, res, next) => {
       const productIndex = cart.products.findIndex(
         (item) => item.productId === productId
       );
-   
 
       if (productIndex === -1) {
         cart.update({
@@ -95,10 +94,50 @@ router.post("/:userId/delete/:productId", (req, res, next) => {
         (item) => item.productId === productId
       );
 
-        if (cart.products[productIndex].quantity > 1) {
+      if (cart.products[productIndex].quantity > 1) {
+        const updatedProducts = cart.products.map((product, index) => {
+          if (index === productIndex) {
+            return { ...product, quantity: product.quantity - 1 };
+          } else {
+            return product;
+          }
+        });
+        cart.update({ products: updatedProducts });
+      } else {
+        const updatedProducts = cart.products.filter(
+          (product) => product.productId !== productId
+        );
+        cart.update({ products: updatedProducts });
+      }
+
+      res.send(cart);
+    })
+    .catch(next);
+});
+
+// EDIT THE AMOUNT OF PRODUCT IN CART
+router.post("/:userId/edit/:productId", (req, res, next) => {
+    const { userId, productId } = req.params;
+    const { amount } = req.query;
+  
+    User.findByPk(userId).then((user) => {
+      if (!user) res.status(404).send("User not found");
+    });
+    Product.findByPk(productId).then((product) => {
+      if (!product) res.status(404).send("Product not found");
+    });
+  
+    Cart.findOne({
+      where: { userId, state: true },
+    })
+      .then((cart) => {
+        const productIndex = cart.products.findIndex(
+          (item) => item.productId === productId
+        );
+        if (amount > 0) {
           const updatedProducts = cart.products.map((product, index) => {
             if (index === productIndex) {
-              return { ...product, quantity: product.quantity - 1 };
+              return { ...product, quantity: parseInt(amount) };
             } else {
               return product;
             }
@@ -110,25 +149,14 @@ router.post("/:userId/delete/:productId", (req, res, next) => {
           );
           cart.update({ products: updatedProducts });
         }
-      
+        res.status(204).send(cart);
+      })
+      .catch(next);
+  });
 
-      res.send(cart);
-    })
-    .catch(next);
-});
+
 
 // nuevo
-
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  Cart.findByPk(id)
-    .then((cart) => {
-      res.status(200).send(cart);
-    })
-    .catch(() =>
-      res.status(200).send({ error: "the cart couldn't be loaded" })
-    );
-});
 
 router.post("/:cartId/:productId", (req, res) => {
   const id = req.params.cartId;
