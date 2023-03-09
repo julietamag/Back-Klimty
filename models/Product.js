@@ -17,7 +17,8 @@ Product.init(
       type: S.TEXT,
     },
     category: {
-      type: S.STRING,
+      type: S.ARRAY(S.STRING),
+      defaultValue: [],
     },
     photo_url: {
       type: S.STRING,

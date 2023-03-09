@@ -69,6 +69,4 @@ router.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
-// ruta para buscar producto por nombre
-
 module.exports = router;
