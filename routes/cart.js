@@ -38,27 +38,28 @@ router.post("/:userId", (req, res, next) => {
 router.post("/:userId/add/:productId", (req, res, next) => {
   const { userId, productId } = req.params;
 
-  User.findByPk(userId).then((user) => {
-    if (!user) res.status(404).send("User not found");
-  });
-  Product.findByPk(productId).then((product) => {
-    if (!product) res.status(404).send("User not found");
-  });
+  // User.findByPk(userId).then((user) => {
+  //   if (!user) res.status(404).send("User not found");
+  // });
+  // Product.findByPk(productId).then((product) => {
+  //   if (!product) res.status(404).send("User not found");
+  // });
 
-  Cart.findOne({
+  Cart.findOrCreate({
     where: { userId, state: true },
   })
     .then((cart) => {
-      const productIndex = cart.products.findIndex(
+      const cartId = cart[0].dataValues.id
+      const productIndex = cart[0].dataValues.products.findIndex(
         (item) => item.productId === productId
       );
 
       if (productIndex === -1) {
         cart.update({
-          products: [...cart.products, { quantity: 1, productId }],
+          products: [...cart[0].dataValues.products, { quantity: 1, productId }],
         });
       } else {
-        const updatedProducts = cart.products.map((product, index) => {
+        const updatedProducts = cart[0].dataValues.products.map((product, index) => {
           if (index === productIndex) {
             return { ...product, quantity: product.quantity + 1 };
           } else {
