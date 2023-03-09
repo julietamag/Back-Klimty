@@ -3,11 +3,7 @@ const { Cart, User, Product } = require("../models");
 
 const router = express.Router();
 
-// get user by id con include Cart ya me trae todos los carritos asociados a ese usario.
-// modificar el carrito con estado true
-// agregar el id del producto apsado por params
-// eliminar el id del producot pasado por params
-// editar la cantidad de determiando producto
+// SOLO SE CREAN CARRITOS AL DESPACHAR ORDEN DE COMPRA Y REGISTRO DE USUARIO NUEVO
 
 // Get all carts
 // historial => findAll solo carritos con status false
@@ -15,11 +11,9 @@ router.get("/", (req, res, next) => {
   Cart.findAll()
     .then((carts) => res.send(carts))
     .catch(next);
-  //  console.error(error);
-  // res.status(500).json({ message: "Server Error" });
 });
 
-// Get cart by ID
+// Get cart by ID ??????????
 router.get("/:id", (req, res, next) => {
   Cart.findByPk(req.params.id)
     .then((cart) => {
@@ -32,22 +26,9 @@ router.get("/:id", (req, res, next) => {
 });
 
 // Create a new cart
-//FRONT!! mandar TRUE como STATE en req body!!!
-router.post("/", (req, res, next) => {
-  Cart.create(req.body)
+router.post("/:userId", (req, res, next) => {
+  Cart.create({ userId: req.params.userId, state: true })
     .then((cart) => res.status(201).send(cart))
-    .catch(next);
-});
-
-// Update cart by ID
-router.put("/:id", (req, res, next) => {
-  Cart.findByPk(req.params.id)
-    .then((cart) => {
-      if (!cart) {
-        return res.status(404).send({ message: "Cart not found" });
-      }
-      cart.update(req.body);
-    })
     .catch(next);
 });
 
@@ -56,63 +37,13 @@ router.put("/:id", (req, res, next) => {
 
 router.post("/:userId/add/:productId", (req, res, next) => {
   const { userId, productId } = req.params;
-  let user;
-  let product;
-  let cart;
+
   User.findByPk(userId).then((user) => {
-    user = user;
+    if (!user) res.status(404).send("User not found");
   });
   Product.findByPk(productId).then((product) => {
-    product = product;
+    if (!product) res.status(404).send("User not found");
   });
-
-  if (!user || !product) {
-    res.status(404).send("User or product not found");
-  }
-
-  Cart.findOne({
-    where: { userId, state: true },
-  })
-    .then((cart) => {
-      if (!cart) {
-        Cart.create({
-          state: true,
-          userId,
-          products: [{ productId, quantity: 1 }],
-        });
-      } else {
-        const productIndex = cart.products.findIndex(
-          (item) => item.productId === productId
-        );
-
-        if (productIndex === -1) {
-          cart.products.push({ productId, quantity: 1 });
-        } else {
-          cart.products[productIndex].quantity++;
-        }
-      }
-      res.send(cart);
-    })
-    .catch(next);
-});
-
-// Delete product by ID from cart
-//FRONT!! mandar dentro de la ruta el ID del USER y el ID del PRODUCT a eliminar
-router.post("/:userId/delete/:productId", (req, res, next) => {
-  const { userId, productId } = req.params;
-  let user;
-  let product;
-  let cart;
-  User.findByPk(userId).then((user) => {
-    user = user;
-  });
-  Product.findByPk(productId).then((product) => {
-    product = product;
-  });
-
-  if (!user || !product) {
-    res.status(404).send("User or product not found");
-  }
 
   Cart.findOne({
     where: { userId, state: true },
@@ -122,12 +53,20 @@ router.post("/:userId/delete/:productId", (req, res, next) => {
         (item) => item.productId === productId
       );
 
-      if (cart.products[productIndex].quantity === 1) {
-        cart.products.filter((product) => {
-          product !== cart.products[productIndex];
+      if (productIndex === -1) {
+        cart.update({
+          products: [...cart.products, { quantity: 1, productId }],
         });
       } else {
-        cart.products[productIndex].quantity--;
+        const updatedProducts = cart.products.map((product, index) => {
+          if (index === productIndex) {
+            return { ...product, quantity: product.quantity + 1 };
+          } else {
+            return product;
+          }
+        });
+
+        cart.update({ products: updatedProducts });
       }
 
       res.send(cart);
@@ -135,55 +74,131 @@ router.post("/:userId/delete/:productId", (req, res, next) => {
     .catch(next);
 });
 
+// Delete product by ID from cart
+//FRONT!! mandar dentro de la ruta el ID del USER y el ID del PRODUCT a eliminar
+router.post("/:userId/delete/:productId", (req, res, next) => {
+  const { userId, productId } = req.params;
+
+  User.findByPk(userId).then((user) => {
+    if (!user) res.status(404).send("User not found");
+  });
+  Product.findByPk(productId).then((product) => {
+    if (!product) res.status(404).send("User not found");
+  });
+
+  Cart.findOne({
+    where: { userId, state: true },
+  })
+    .then((cart) => {
+      const productIndex = cart.products.findIndex(
+        (item) => item.productId === productId
+      );
+
+      if (cart.products[productIndex].quantity > 1) {
+        const updatedProducts = cart.products.map((product, index) => {
+          if (index === productIndex) {
+            return { ...product, quantity: product.quantity - 1 };
+          } else {
+            return product;
+          }
+        });
+        cart.update({ products: updatedProducts });
+      } else {
+        const updatedProducts = cart.products.filter(
+          (product) => product.productId !== productId
+        );
+        cart.update({ products: updatedProducts });
+      }
+
+      res.send(cart);
+    })
+    .catch(next);
+});
+
+// EDIT THE AMOUNT OF PRODUCT IN CART
+router.post("/:userId/edit/:productId", (req, res, next) => {
+    const { userId, productId } = req.params;
+    const { amount } = req.query;
+  
+    User.findByPk(userId).then((user) => {
+      if (!user) res.status(404).send("User not found");
+    });
+    Product.findByPk(productId).then((product) => {
+      if (!product) res.status(404).send("Product not found");
+    });
+  
+    Cart.findOne({
+      where: { userId, state: true },
+    })
+      .then((cart) => {
+        const productIndex = cart.products.findIndex(
+          (item) => item.productId === productId
+        );
+        if (amount > 0) {
+          const updatedProducts = cart.products.map((product, index) => {
+            if (index === productIndex) {
+              return { ...product, quantity: parseInt(amount) };
+            } else {
+              return product;
+            }
+          });
+          cart.update({ products: updatedProducts });
+        } else {
+          const updatedProducts = cart.products.filter(
+            (product) => product.productId !== productId
+          );
+          cart.update({ products: updatedProducts });
+        }
+        res.status(204).send(cart);
+      })
+      .catch(next);
+  });
+
+
 
 // nuevo
 
-router.get("/:id", (req, res) => {
-    const id = req.params.id;
-    Cart.findByPk(id)
-      .then((cart) => {
-        res.status(200).send(cart);
-      })
-      .catch(() =>
-        res.status(200).send({ error: "the cart couldn't be loaded" })
-      );
-  });
-  
-  router.post("/:cartId/:productId", (req, res) => {
-    const id = req.params.cartId;
-    const productId = req.params.productId;
-    Product.findByPk(productId)
-      .then((item) => {
-        let transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false,
-          auth: {
-            user: "Klimty Ecommerce",
-            pass: "Klimty1234",
-          },
-        });
-  
-        const message = {
-          from: "klimtyecommerce@gmail.com",
-          to: item.email,
-          subject: `Your purchased of ${item.name}, has been confirmed.`,
-          text: "Don't really have much to say",
-        };
-  
-        transporter.sendMail(message, function (err, data) {
-          if (err) {
-            res.status(400).send({error: "failed to send the email"});
-          } else {
-            Cart.products.findByPk(productId).then((item) => {
-              item.destroy().then((data) => res.status(200).send(data));
-            }).catch(() => res.status(400).send({error: "failed to delete the purchased product"}))
-            res.status(200).send(data);
-          }
-        });
-      })
-      .catch(() => res.status(400).send({ error: "failed to send the email" }));
-  });
+router.post("/:cartId/:productId", (req, res) => {
+  const id = req.params.cartId;
+  const productId = req.params.productId;
+  Product.findByPk(productId)
+    .then((item) => {
+      let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "Klimty Ecommerce",
+          pass: "Klimty1234",
+        },
+      });
 
+      const message = {
+        from: "klimtyecommerce@gmail.com",
+        to: item.email,
+        subject: `Your purchased of ${item.name}, has been confirmed.`,
+        text: "Don't really have much to say",
+      };
+
+      transporter.sendMail(message, function (err, data) {
+        if (err) {
+          res.status(400).send({ error: "failed to send the email" });
+        } else {
+          Cart.products
+            .findByPk(productId)
+            .then((item) => {
+              item.destroy().then((data) => res.status(200).send(data));
+            })
+            .catch(() =>
+              res
+                .status(400)
+                .send({ error: "failed to delete the purchased product" })
+            );
+          res.status(200).send(data);
+        }
+      });
+    })
+    .catch(() => res.status(400).send({ error: "failed to send the email" }));
+});
 
 module.exports = router;

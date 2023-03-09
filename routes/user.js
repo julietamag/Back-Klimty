@@ -24,7 +24,6 @@ router.get(`/:id`, (req, res) => {
 // POST PARA CREAR EL USUARIO
 
 router.post("/", (req, res, next) => {
-  console.log("CONSOLE LOG DEL REQ BODY", req.body);
   const { name, lastName, email, uid } = req.body;
   User.findOrCreate({ where: { name, lastName, email, uid } })
     .then((newUser) => {
