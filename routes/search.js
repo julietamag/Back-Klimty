@@ -3,6 +3,8 @@ const { Artist, Product } = require("../models");
 const router = express.Router();
 const S = require("sequelize");
 
+// Search artists by name
+
 router.get("/artist", (req, res, next) => {
   Artist.findAll({
     where: {
