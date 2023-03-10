@@ -59,7 +59,7 @@ router.get("/:id", (req, res, next) => {
       id: req.params.id,
     },
     include: {
-      model: Artist,
+      model: Artist
     },
   })
     .then((results) => {
