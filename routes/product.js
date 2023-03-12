@@ -13,7 +13,9 @@ const {
 } = require("../config/seedProducts");
 
 router.get("/", (req, res, next) => {
-  Product.findAll()
+  Product.findAll({include: {
+    model: Artist
+  }})
     .then((artists) => {
       return res.send(artists);
     })
