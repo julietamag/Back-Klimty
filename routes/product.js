@@ -91,7 +91,6 @@ router.delete("/:userId/:productId", (req, res, next) => {
 
 router.post("/:userId/add", (req, res, next) => {
   const userId = req.params.userId;
-  console.log(req.params.userId)
   const { name, price, description, category, photo_url } = req.body;
   User.findByPk(userId)
     .then((user) => {
