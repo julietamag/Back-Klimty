@@ -73,7 +73,6 @@ router.get(`/:uid`, (req, res) => {
 // POST PARA CREAR EL USUARIO
 
 router.post("/", (req, res, next) => {
-  console.log("CONSOLE LOG DEL REQ BODY", req.body);
   const { name, lastName, email, uid } = req.body;
   User.findOrCreate({ where: { name, lastName, email, uid } })
     .then((newUser) => {
@@ -83,7 +82,6 @@ router.post("/", (req, res, next) => {
 });
 
 // PUT PARA EDITAR EL USUARIO
-
 router.put(`/edit/:id`, (req, res, next) => {
   const { name, lastName, uid, email, isAdmin } = req.body;
   User.findByPk(req.params.id)
