@@ -1,5 +1,6 @@
 const express = require("express");
 const { Cart, User, Product } = require("../models");
+const nodemailer = require("nodemailer")
 
 const router = express.Router();
 
@@ -158,47 +159,54 @@ router.post("/:userId/edit/:productId", (req, res, next) => {
 
 // IGNORAR =>
 
-router.post("/:cartId/:productId", (req, res) => {
-  const id = req.params.cartId;
-  const productId = req.params.productId;
-  Product.findByPk(productId)
-    .then((item) => {
-      let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
-        auth: {
-          user: "Klimty Ecommerce",
-          pass: "Klimty1234",
-        },
-      });
+/* router.post("/:userId/checkout", (req, res, next) => {
+  const userId = req.params.userId;
+  Cart.findOne({ where: { userId, state: true } }).then((cart) => {
+    const totalCart = cart.dataValues.products
+    console.log(totalCart)
+
+    let transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "Klimty Ecommerce",
+        pass: "Klimty1234",
+      },
+    });
+
+    User.findByPk(userId).then((user) => {
+const {name, lastName, email} = user
 
       const message = {
         from: "klimtyecommerce@gmail.com",
-        to: item.email,
-        subject: `Your purchased of ${item.name}, has been confirmed.`,
+        to: email,
+        subject: `Your purchased all the items on your cart.`,
         text: "Don't really have much to say",
       };
-
       transporter.sendMail(message, function (err, data) {
         if (err) {
-          res.status(400).send({ error: "failed to send the email" });
+           next(err)
         } else {
-          Cart.products
-            .findByPk(productId)
-            .then((item) => {
-              item.destroy().then((data) => res.status(200).send(data));
-            })
-            .catch(() =>
-              res
-                .status(400)
-                .send({ error: "failed to delete the purchased product" })
-            );
           res.status(200).send(data);
         }
+        })
       });
     })
-    .catch(() => res.status(400).send({ error: "failed to send the email" }));
+
+
+   
 });
+
+router.get("/:userId/buyOrden", (req, res) => {
+  const id = req.params.userId
+  BuyOrden.findAll({
+    where: {
+    userId: id
+    }
+  }).then((userBuyOrden) => {
+    res.status(200).send(userBuyOrden)
+  })
+}); */
 
 module.exports = router;

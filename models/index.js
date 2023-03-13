@@ -3,6 +3,7 @@ const Cart = require('../models/Cart')
 const Product = require('../models/Product')
 const Artist = require('../models/Artist')
 
+
 // USER HAS MANY CART
 // CART HAS ONE USER
 User.hasMany(Cart)
@@ -25,7 +26,8 @@ module.exports = {
     User,
     Cart,
     Product,
-    Artist
+    Artist,
+   
 }
 
 
