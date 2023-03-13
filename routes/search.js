@@ -24,7 +24,6 @@ router.get("/artist", (req, res, next) => {
 // GET all info about product by name
 // FRONT!! pasar user input bajo query 'input'
 router.get("/product", (req, res, next) => {
-  console.log(req.query.input);
   Product.findAll({
     where: {
       [S.Op.or]: [{ name: { [S.Op.like]: `%${req.query.input}%` } }],

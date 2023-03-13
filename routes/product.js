@@ -12,10 +12,13 @@ const {
   grantWood,
 } = require("../config/seedProducts");
 
+// GET ALL PRODUCTS
 router.get("/", (req, res, next) => {
-  Product.findAll({include: {
-    model: Artist
-  }})
+  Product.findAll({
+    include: {
+      model: Artist,
+    },
+  })
     .then((artists) => {
       return res.send(artists);
     })
@@ -33,6 +36,7 @@ const artists = [
   andyWarhol,
 ];
 
+// SEED
 router.post("/", async (req, res, next) => {
   const createdProducts = [];
   let artistId = 1;
@@ -47,21 +51,20 @@ router.post("/", async (req, res, next) => {
       if (artistId > artists.length) {
         return res.status(201).send(createdProducts);
       }
-    } catch (next) {
+    } catch (error) {
       console.error(error);
     }
   }
 });
 
-// ruta para buscar producto por ID
-
+// GET PRODUCT BY ID
 router.get("/:id", (req, res, next) => {
   Product.findOne({
     where: {
       id: req.params.id,
     },
     include: {
-      model: Artist
+      model: Artist,
     },
   })
     .then((results) => {
@@ -71,6 +74,8 @@ router.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
+// ADMIN!! =>
+// DELETE A PRODUCT
 router.delete("/:userId/:productId", (req, res, next) => {
   const userId = req.params.userId;
   const productId = req.params.productId;
@@ -89,9 +94,9 @@ router.delete("/:userId/:productId", (req, res, next) => {
     .catch(next);
 });
 
+// ADD A PRODUCT
 router.post("/:userId/add", (req, res, next) => {
   const userId = req.params.userId;
-  console.log(req.params.userId)
   const { name, price, description, category, photo_url } = req.body;
   User.findByPk(userId)
     .then((user) => {
@@ -108,9 +113,10 @@ router.post("/:userId/add", (req, res, next) => {
     .catch(next);
 });
 
+// EDIT A PRODUCT
 router.put("/:userId/edit/:productId", (req, res, next) => {
   const userId = req.params.userId;
- 
+
   const { name, price, description, category } = req.body;
   User.findByPk(userId)
     .then((user) => {
@@ -131,7 +137,5 @@ router.put("/:userId/edit/:productId", (req, res, next) => {
     })
     .catch(next);
 });
-
-// ruta para buscar producto por nombre
 
 module.exports = router;
