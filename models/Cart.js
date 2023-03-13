@@ -13,6 +13,11 @@ Cart.init(
       type: S.VIRTUAL,
       allowNull: false,
       defaultValue: 0,
+      get(){
+        return this.products.reduce((acc, item) => {
+          return acc + item.price
+        }, 0) 
+      }
     },
     products: {
       type: S.DataTypes.JSONB,

@@ -7,12 +7,12 @@ const Artist = require('../models/Artist')
 // USER HAS MANY CART
 // CART HAS ONE USER
 User.hasMany(Cart)
-Cart.hasOne(User)
+Cart.belongsTo(User)
 
 // ARTIST HAS MANY PRODUCT
 // PRODUCT HAS ONE ARTIST 
 Artist.hasMany(Product)
-Product.hasOne(Artist)
+Product.belongsTo(Artist)
 
 // USER HAS MANY REVIEW
 // REVIEW HAS ONE USER

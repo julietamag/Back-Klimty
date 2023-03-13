@@ -96,4 +96,15 @@ router.put(`/edit/:id`, (req, res, next) => {
     .catch(next);
 });
 
+// GET USER UID
+router.get("/uid/:uid", (req, res, next) => {
+  let { uid } = req.params;
+  uid = uid.toString();
+  User.findOne({ where: { uid } })
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch(next);
+});
+
 module.exports = router;
