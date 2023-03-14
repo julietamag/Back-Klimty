@@ -4,7 +4,7 @@ const db = require("./db");
 const envs = require("./config/_envs");
 const morgan = require("morgan");
 const cors = require("cors");
-const { Artist, Product, Cart, User } = require("./models");
+const { Artist, Product, Cart, User, Checkout } = require("./models");
 const routes = require("./routes");
 
 app.use(
