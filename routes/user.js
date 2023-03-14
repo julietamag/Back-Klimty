@@ -1,8 +1,14 @@
 const express = require("express");
 const { User } = require("../models");
+const { findAll } = require("../models/User");
 const router = express.Router();
 
 // GET PARA TRAER TODOS LOS USUARIOS
+router.get('/', async (req,res, next) => {
+  const users = await User.findAll()
+
+  res.send(users)
+})
 
 router.get("/:userId/all", (req, res) => {
     const userId = req.params.userId

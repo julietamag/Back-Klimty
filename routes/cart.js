@@ -1,6 +1,7 @@
 const express = require("express");
 const { Cart, User, Product } = require("../models");
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
+const smtpTransport = require("nodemailer-smtp-transport");
 
 const router = express.Router();
 
@@ -46,10 +47,82 @@ router.post("/:userId/create", (req, res, next) => {
 
   Cart.findOrCreate({
     where: { userId, state: true },
-  })
-  .catch(next);
+  }).catch(next);
 });
 
+// CHECKOUT
+router.post("/:userId/checkout", async (req, res, next) => {
+  const userId = req.params.userId;
+  const cart = await Cart.findOne({ where: { userId, state: true } });
+  const totalCart = cart.products;
 
+  const oldCart = await cart.update({ state: false });
+  const newCart = await Cart.create({ userId: req.params.userId, state: true });
+
+  res.status(201).send(newCart);
+
+  let transport = nodemailer.createTransport(
+    smtpTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      auth: {
+        user: "klimtyecommerce@gmail.com",
+        pass: "auaboiqezvqpvulg",
+      },
+    })
+  );
+
+  User.findByPk(userId).then((user) => {
+    const { name, lastName, email } = user;
+
+    const message = {
+      from: "klimtyecommerce@gmail.com",
+      to: email,
+      subject: `This is your Klimty order ⚡️`,
+      html: `<h2>Hi ${name} ${lastName}!</h2> 
+      <h3>This is your purchase:</h3> 
+              <br></br>
+              <ul>
+      ${totalCart.map(
+        (item) => `  <div class="card">
+      <h4>${item.product.name}</h4>
+      <p class="price">Price: $ ${item.product.price}</p>
+      <p>Quantity: ${item.quantity}</p>
+    </div>`
+      )}
+      </ul>
+      <h5>Thanks for buying in Klimty</h5> 
+      `,
+    };
+    transport.sendMail(message, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Message sent: ", data.messageId);
+      }
+    });
+  });
+
+  /*       
+        const address2 = localStorage.getItem("address2");
+        const name = localStorage.getItem("name");
+        const lastName = localStorage.getItem("lastName");
+        const address1 = localStorage.getItem("address1");
+       */
+  /* 
+      localStorage.removeItem("address2");
+      localStorage.removeItem("name");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("address1"); */
+});
+
+router.get("/:userId/history", (req, res, next) => {
+  const userId = req.params.userId;
+  Cart.findAll({ where: { userId, state: false } }).then((pastCarts) => {
+    const carts = pastCarts;
+    const exProducts = pastCarts.map((item) => item.products);
+    res.status(200).send(exProducts);
+  });
+});
 
 module.exports = router;
