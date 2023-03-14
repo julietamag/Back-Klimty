@@ -12,14 +12,13 @@ const {
   grantWood,
 } = require("../config/seedProducts");
 
-router.get("/", (req, res, next) => {
-  Product.findAll({include: {
-    model: Artist
-  }})
-    .then((artists) => {
-      return res.send(artists);
-    })
-    .catch(next);
+router.get("/", async (req, res, next) => {
+  try {
+    const allProducts = await Product.findAll({ include: { model: Artist } })
+    return res.status(200).send(allProducts)
+  } catch (err) {
+    return next(err)
+  }
 });
 
 const artists = [
@@ -55,80 +54,63 @@ router.post("/", async (req, res, next) => {
 
 // ruta para buscar producto por ID
 
-router.get("/:id", (req, res, next) => {
-  Product.findOne({
-    where: {
-      id: req.params.id,
-    },
-    include: {
-      model: Artist
-    },
-  })
-    .then((results) => {
-      if (!results) res.statusCode(404);
-      res.send(results);
-    })
-    .catch(next);
+router.get("/:id", async (req, res, next) => {
+  try {
+    const productFound = await Product.findOne({ where: { id: req.params.id, }, include: { model: Artist } })
+    if (productFound) {
+     return res.status(200).send(productFound)
+    } else {
+     return res.status(404).send({error: "product not found"})
+    }
+  } catch (err) {
+    next(err)
+  }
 });
 
-router.delete("/:userId/:productId", (req, res, next) => {
-  const userId = req.params.userId;
-  const productId = req.params.productId;
-  User.findByPk(userId)
-    .then((user) => {
-      if (user.isAdmin === true) {
-        Product.findByPk(productId)
-          .then((product) => {
-            product.destroy().then((data) => res.status(202).send(data));
-          })
-          .catch(() => ({ error: "the product coulnd't be found" }));
-      } else {
-        res.status(401).send({ error: "the user is not admin" });
-      }
-    })
-    .catch(next);
+router.delete("/:userId/:productId", async (req, res, next) => {
+  try {
+    const AdminUser = await User.findByPk(req.params.userId)
+    if (AdminUser.isAdmin === true) {
+      const productToDelete = await Product.findByPk(req.params.productId)
+     await productToDelete.destroy()
+      return res.status(204).send("product deleted from database") 
+    } else {
+      return res.status(401).send({error:"Your account is not admin"})
+    }
+  } catch (err) {
+    return next(err)
+  }
 });
 
-router.post("/:userId/add", (req, res, next) => {
-  const userId = req.params.userId;
-  const { name, price, description, category, photo_url } = req.body;
-  User.findByPk(userId)
-    .then((user) => {
-      if (user.isAdmin === true) {
-        Product.create({ name, price, description, category, photo_url })
-          .then((product) => {
-            res.status(202).send(product);
-          })
-          .catch(next);
-      } else {
-        res.status(401).send({ error: "the user is not admin" });
-      }
-    })
-    .catch(next);
+router.post("/:userId/add", async (req, res, next) => {
+  try {
+    const { name, price, description, category, photo_url } = req.body;
+    const AdminUser = await User.findByPk(req.params.userId)
+    if (AdminUser.isAdmin === true) {
+      const newProduct = await Product.create({name, price, description,category, photo_url})
+      return res.status(201).send(newProduct) 
+    } else {
+      return res.status(401).send({error:"Your account is not admin"})
+    }
+  } catch (err) {
+    return next(err)
+  }
 });
 
-router.put("/:userId/edit/:productId", (req, res, next) => {
-  const userId = req.params.userId;
- 
-  const { name, price, description, category } = req.body;
-  User.findByPk(userId)
-    .then((user) => {
-      if (user.isAdmin === true) {
-        Product.findByPk(req.params.productId)
-          .then((noEditedProduct) => {
-            noEditedProduct
-              .update({ name, price, description, category })
-              .then((editProduct) => {
-                res.status(201).send(editProduct);
-              })
-              .catch(() => ({ error: "failed to edit the product" }));
-          })
-          .catch(() => ({ error: "the product coulnd't be edited" }));
-      } else {
-        res.status(401).send({ error: "the user is not admin" });
-      }
-    })
-    .catch(next);
+router.put("/:userId/edit/:productId", async (req, res, next) => {
+  try {
+    const { name, price, description, category } = req.body;
+    const AdminUser = await User.findByPk(req.params.userId)
+    if (AdminUser.isAdmin === true) {
+      const productToEdit = await Product.findByPk(req.params.productId)
+      const editedProduct = await productToEdit.update({name, price, description, category})
+      return res.status(200).send(editedProduct) 
+    } else {
+      return res.status(401).send({error:"Your account is not admin"})
+    }
+  } catch (err) {
+    return next(err)
+  }
 });
 
 // ruta para buscar producto por nombre

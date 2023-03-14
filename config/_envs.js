@@ -1,6 +1,6 @@
 module.exports = {
     DB_NAME: 'klimty',
-    PORT: 3001,
-    DB_PASSWORD: '',
+    PORT: 3003,
+    PASS: "Metro2033",
     HOST: 'localhost'
 }
