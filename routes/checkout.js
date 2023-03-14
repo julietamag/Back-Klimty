@@ -13,7 +13,7 @@ router.post("/:userId", async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ where: { userId, state: true } });
     const checkout = await Checkout.create({
-      ...req.body,
+      ...req.body.checkout,
       state: state,
       userId: cart.userId,
       cartId: cart.id,
