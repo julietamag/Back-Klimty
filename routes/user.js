@@ -52,7 +52,7 @@ router.put(`/:userId/edit/:newAdminId`, async (req, res, next) => {
 }
 })
 
-           
+
 // GET PARA BUSCAR UN USUARIO POR ID
 
 router.get(`/:id`, async (req, res) => {
@@ -89,7 +89,8 @@ router.post("/", async (req, res, next) => {
 
 router.put(`/edit/:id`, async (req, res, next) => {
   try {
-    const { name, lastName, uid, email, isAdmin } = req.body;
+    const { name, lastName, uid, isAdmin } = req.body;
+
     const userToUpdate = await User.findByPk(req.params.id)
     const updatedUser = await userToUpdate.update({ name, lastName, uid, isAdmin })
     return res.status(200).send(updatedUser)

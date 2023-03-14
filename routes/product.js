@@ -12,6 +12,7 @@ const {
   grantWood,
 } = require("../config/seedProducts");
 
+
 router.get("/", async (req, res, next) => {
   try {
     const allProducts = await Product.findAll({ include: { model: Artist } })
@@ -19,6 +20,7 @@ router.get("/", async (req, res, next) => {
   } catch (err) {
     return next(err)
   }
+
 });
 
 const artists = [
@@ -32,6 +34,7 @@ const artists = [
   andyWarhol,
 ];
 
+// SEED
 router.post("/", async (req, res, next) => {
   const createdProducts = [];
   let artistId = 1;
@@ -46,7 +49,7 @@ router.post("/", async (req, res, next) => {
       if (artistId > artists.length) {
         return res.status(201).send(createdProducts);
       }
-    } catch (next) {
+    } catch (error) {
       console.error(error);
     }
   }
@@ -112,7 +115,5 @@ router.put("/:userId/edit/:productId", async (req, res, next) => {
     return next(err)
   }
 });
-
-// ruta para buscar producto por nombre
 
 module.exports = router;

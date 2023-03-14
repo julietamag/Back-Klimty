@@ -1,8 +1,7 @@
 const express = require("express");
-const { Cart, User, Product } = require("../models");
+const { Cart, User } = require("../models");
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
-
 const router = express.Router();
 
 // SOLO SE CREAN CARRITOS AL DESPACHAR ORDEN DE COMPRA Y REGISTRO DE USUARIO NUEVO
@@ -47,7 +46,6 @@ router.post("/:userId/create", async (req, res, next) => {
    return next(err)
   }
 });
-
 
 
 module.exports = router;
