@@ -59,8 +59,6 @@ router.post("/:userId/checkout", async (req, res, next) => {
   const oldCart = await cart.update({ state: false });
   const newCart = await Cart.create({ userId: req.params.userId, state: true });
 
-  console.log(totalCart, "CART TOTAL");
-
   res.status(201).send(newCart);
 
   let transport = nodemailer.createTransport(
@@ -80,9 +78,21 @@ router.post("/:userId/checkout", async (req, res, next) => {
     const message = {
       from: "klimtyecommerce@gmail.com",
       to: email,
-      subject: `Your purchased all the items on your cart.`,
-      text: `This is your purchase: ${totalCart}`,
-      html: `This is your purchase: ${cart.dataValues.products}`,
+      subject: `This is your Klimty order ⚡️`,
+      html: `<h2>Hi ${name} ${lastName}!</h2> 
+      <h3>This is your purchase:</h3> 
+              <br></br>
+              <ul>
+      ${totalCart.map(
+        (item) => `  <div class="card">
+      <h4>${item.product.name}</h4>
+      <p class="price">Price: $ ${item.product.price}</p>
+      <p>Quantity: ${item.quantity}</p>
+    </div>`
+      )}
+      </ul>
+      <h5>Thanks for buying in Klimty</h5> 
+      `,
     };
     transport.sendMail(message, (err, data) => {
       if (err) {
@@ -107,12 +117,12 @@ router.post("/:userId/checkout", async (req, res, next) => {
 });
 
 router.get("/:userId/history", (req, res, next) => {
-  const userId = req.params.userId
+  const userId = req.params.userId;
   Cart.findAll({ where: { userId, state: false } }).then((pastCarts) => {
-    const carts = pastCarts
-    const exProducts = pastCarts.map((item) => item.products)
-    res.status(200).send(exProducts)
-  })
-})
+    const carts = pastCarts;
+    const exProducts = pastCarts.map((item) => item.products);
+    res.status(200).send(exProducts);
+  });
+});
 
 module.exports = router;
