@@ -20,7 +20,7 @@ Review.init(
 );
 
 Review.addHook("beforeValidate", (review, options) => {
-    if (!review.star || !review.description) {
+    if (!review.star && !review.description) {
         throw new Error("Either Star or Description must be filled!");
       }
 });

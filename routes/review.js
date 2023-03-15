@@ -1,5 +1,5 @@
 const express = require("express");
-const { Review } = require("../models");
+const { Review, User } = require("../models");
 const router = express.Router();
 
 router.post("/:userId/:productId", async (req, res, next) => {
@@ -22,16 +22,16 @@ router.post("/:userId/:productId", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(404).send(error, { message: "Error producing Review" });
+    res.status(404).send({ message: "Error producing Review" });
   }
 });
 
-router.get("/:userId", async (req, res, next) => {
+router.get("/user/:userId", async (req, res, next) => {
   const { userId } = req.params;
   try {
     const reviews = await Review.findAll(
-      { where: { userId: userId } },
-      { include: { all: true } }
+      { where: { userId: userId }, include: {all: true} }
+ 
     );
     if (reviews) {
       res.send(reviews);
@@ -42,6 +42,24 @@ router.get("/:userId", async (req, res, next) => {
     res.status(404).send(error, {message: 'Error getting all reviews from user'});
   }
 });
+
+
+router.get("/product/:productId", async (req, res, next) => {
+    const { productId } = req.params;
+    try {
+      const reviews = await Review.findAll(
+        { where: { productId: productId } , include: {all: true}},
+       
+      );
+      if (reviews) {
+        res.send(reviews);
+      } else {
+        res.status(404).send({ message: "Reviews not found" });
+      }
+    } catch (error) {
+      res.status(404).send({message: 'Error getting all reviews of product'});
+    }
+  });
 
 
 module.exports = router;
