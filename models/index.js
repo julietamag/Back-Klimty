@@ -1,44 +1,33 @@
-const User = require('../models/User')
-const Cart = require('../models/Cart')
-const Product = require('../models/Product')
-const Artist = require('../models/Artist')
-const Checkout = require('../models/Checkout')
+const User = require("../models/User");
+const Cart = require("../models/Cart");
+const Product = require("../models/Product");
+const Artist = require("../models/Artist");
+const Checkout = require("../models/Checkout");
+const Review = require("../models/Review");
 
+User.hasMany(Cart);
+Cart.belongsTo(User);
 
-// USER HAS MANY CART
-// CART BELONGS TO USER
-User.hasMany(Cart)
-Cart.belongsTo(User)
+Artist.hasMany(Product);
+Product.belongsTo(Artist);
 
-// ARTIST HAS MANY PRODUCT
-// PRODUCT BELONGS TO ARTIST 
-Artist.hasMany(Product)
-Product.belongsTo(Artist)
+User.hasMany(Checkout);
+Checkout.belongsTo(User);
 
-// USER HAS MANY CHECKOUT
-// CHECKOUT BELONGS TO USER 
-User.hasMany(Checkout)
-Checkout.belongsTo(User)
+Cart.hasOne(Checkout);
+Checkout.belongsTo(Cart);
 
-// CART HAS ONE CHECKOUT
-// CHECKOUT BELONGS TO CART 
-Cart.hasOne(Checkout)
-Checkout.belongsTo(Cart)
+User.hasMany(Review);
+Review.belongsTo(User);
 
-// USER HAS MANY REVIEW
-// REVIEW HAS ONE USER
-
-
-// REVIEW HAS ONE PRODUCT
-// PRODUCT HAS MANY REVIEW
-
+Product.hasMany(Review);
+Review.belongsTo(Product);
 
 module.exports = {
-    User,
-    Cart,
-    Product,
-    Artist,
-   
-}
-
-
+  User,
+  Cart,
+  Product,
+  Artist,
+  Checkout,
+  Review,
+};

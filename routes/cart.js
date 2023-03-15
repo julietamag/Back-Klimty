@@ -1,5 +1,5 @@
 const express = require("express");
-const { Cart, User } = require("../models");
+const { Cart } = require("../models");
 const router = express.Router();
 const cart_controller = require("../controlers/cart_controller")
 
@@ -10,8 +10,14 @@ const cart_controller = require("../controlers/cart_controller")
 
 router.get("/", cart_controller.find_all_get);
 
-// Get cart by ID ??????????
-router.get("/:userId", cart_controller.find_by_id_get);
+
+// Get cart by ID 
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: { userId: req.params.userId, state: true },
+    });
+
 
 router.post("/:userId/update/:productId", cart_controller.update_cart_post);
 
