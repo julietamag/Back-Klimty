@@ -22,8 +22,26 @@ router.post("/:userId/:productId", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(404).send({ message: "Error producing Review" });
+    res.status(404).send(error, { message: "Error producing Review" });
   }
 });
+
+router.get("/:userid", async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const reviews = await Review.findAll(
+      { where: { userId: userId } },
+      { include: { all: true } }
+    );
+    if (reviews) {
+      res.send(reviews);
+    } else {
+      res.status(404).send({ message: "Reviews not found" });
+    }
+  } catch (error) {
+    res.status(404).send(error, {message: 'Error getting all reviews from user'});
+  }
+});
+
 
 module.exports = router;

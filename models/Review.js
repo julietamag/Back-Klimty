@@ -6,7 +6,7 @@ class Review extends S.Model {}
 Review.init(
   {
     star: {
-      type: S.INTEGER,
+      type: S.FLOAT,
       validate: {
         min: 0,
         max: 5,
