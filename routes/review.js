@@ -26,7 +26,7 @@ router.post("/:userId/:productId", async (req, res, next) => {
   }
 });
 
-router.get("/:userid", async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
   const { userId } = req.params;
   try {
     const reviews = await Review.findAll(
