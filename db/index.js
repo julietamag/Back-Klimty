@@ -1,10 +1,11 @@
-const Sequelize = require('sequelize');
-const {DB_NAME, PORT, PASS, HOST} = require('../config/_envs')
+const Sequelize = require("sequelize");
+const envs = require("../config/_envs");
 
-const db = new Sequelize(DB_NAME, null, null, {
-    host: HOST,
-    logging: false,
-    dialect: 'postgres'
-})
+const db = new Sequelize(envs.DB_NAME, null, null, {
+  host: envs.HOST,
+  logging: false,
+  dialect: "postgres",
+});
+
 
 module.exports = db;

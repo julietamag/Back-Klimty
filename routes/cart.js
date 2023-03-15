@@ -7,6 +7,7 @@ const cart_controller = require("../controlers/cart_controller")
 
 // Get all carts
 // historial => findAll solo carritos con status false
+
 router.get("/", cart_controller.find_all_get);
 
 // Get cart by ID ??????????
