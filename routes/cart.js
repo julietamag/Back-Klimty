@@ -1,7 +1,5 @@
 const express = require("express");
 const { Cart, User } = require("../models");
-const nodemailer = require("nodemailer");
-const smtpTransport = require("nodemailer-smtp-transport");
 const router = express.Router();
 
 // SOLO SE CREAN CARRITOS AL DESPACHAR ORDEN DE COMPRA Y REGISTRO DE USUARIO NUEVO
@@ -31,7 +29,7 @@ router.post("/:userId/update/:productId", async (req, res, next) => {
   try {
     const foundCartOrCreated = await Cart.findOrCreate({ where: { userId: req.params.userId, state: true } })
     const cartId = foundCartOrCreated[0].dataValues.id;
-    const updatedCart = await Cart.update(req.body, { where: { id: req.params.cartId }, returning: true })
+    const updatedCart = await Cart.update(req.body, { where: { id: cartId }, returning: true })
     res.status(200).send(updatedCart)
   } catch (err) {
     return next(err)
