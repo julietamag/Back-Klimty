@@ -7,4 +7,5 @@ const db = new Sequelize(envs.DB_NAME, null, null, {
   dialect: "postgres",
 });
 
+
 module.exports = db;
