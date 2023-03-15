@@ -1,7 +1,5 @@
 const express = require("express");
-const { Cart, User } = require("../models");
-const nodemailer = require("nodemailer");
-const smtpTransport = require("nodemailer-smtp-transport");
+const { Cart } = require("../models");
 const router = express.Router();
 
 // SOLO SE CREAN CARRITOS AL DESPACHAR ORDEN DE COMPRA Y REGISTRO DE USUARIO NUEVO
@@ -19,7 +17,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Get cart by ID ??????????
+// Get cart by ID 
 router.get("/:userId", async (req, res, next) => {
   try {
     const cart = await Cart.findOne({

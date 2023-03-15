@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Cart, User, Product } = require("../models");
+const { Cart } = require("../models");
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 const Checkout = require("../models/Checkout");
