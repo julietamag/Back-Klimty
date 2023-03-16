@@ -12,5 +12,6 @@
   - http://localhost:3001/api/artist
   - http://localhost:3001/api/product
   - http://localhost:3001/api/user/admin
+    [usar informacion de seed admin, necesitan editarla con los comentario en el archivo seedAdmin.js]
 
   * Recordar para el admin seed cambiar el seedAdmin.js con su email y el UID(Esta informacion esta en el archivo seedAdmin.js).
