@@ -1,113 +1,62 @@
 const { User } = require("../models")
 const Checkout = require("../models/Checkout");
+const user_service = require("../services/user_service")
 
 
 exports.users_get = async (req, res, next) => {
-    try {
-        const users = await User.findAll()
-        return res.send(users)
-      } catch (err) {
-        return next(err)
-      }
+  const allUsers = await user_service.getAllUsers();
+ return res.send(allUsers)
 }
 
 exports.checkout_status_post = async (req, res, next) => {
-    try {
-        const { status } = req.body
-        const admin = await User.findByPk(req.params.userId)
-        if (admin.isAdmin === true) {
-          const checkoutToModified = await Checkout.findByPk(req.params.checkoutId)
-          const modifiedStatus = await checkoutToModified.update({ state: status })
-          return res.status(200).send(modifiedStatus)
-        }
-        else {
-          return res.status(401).send({error: "Your account is not admin"})
-        }
-      } catch (err) {
-        next(err)
-      }
+  const userId = req.params.userId
+  const checkoutId = req.params.checkoutId
+  const state = req.body.state
+  const changeOrden = await user_service.changeStatus(state, userId, checkoutId)
+ return res.send(changeOrden)
 }
 
 exports.admin_all_get = async (req, res, next) => {
-    try {
-        const user = await User.findByPk(req.params.userId)
-        if (user.isAdmin === true) {
-          const users = await User.findAll()
-          return res.status(200).send(users)
-        } else return res.status(401).send({error: "Your account is not admin"})
-      } catch (err) {
-        return next(err)
-      }
+  const userId = req.params.userId
+  const allUsers = await user_service.findAllByAdmin(userId)
+  return res.send(allUsers)
 }
 
 exports.admin_user_delete = async (req, res, next) => {
-    try {
-        const admin = await User.findByPk(req.params.userId)
-        if (admin.isAdmin === true) {
-          const userToDelete = await User.findByPk(req.params.DeleteUserID)
-          const deletedUser = await userToDelete.destroy()
-          return res.status(204).send(deletedUser)
-        }
-        return res.status(401).send({error: "Your account is not admin"})
-      } catch (err) {
-        return next(err)
-      }
+  const userId = req.params.userId
+  const deleteUserID = req.params.deleteUserID
+  const erasedUser = await user_service.deleteUser(userId, deleteUserID)
+  return res.send(erasedUser)
 }
 
 exports.admin_new_admin_put = async (req, res, next) => {
-    try {
-        const admin = await User.findByPk(req.params.userId)
-        if (admin.isAdmin === true && admin.id !== req.params.newAdminId) {
-          const userToMakeAdmin = await User.findByPk(req.params.newAdminId)
-          if (userToMakeAdmin.isAdmin === true) {
-            const newAdmin = await userToMakeAdmin.update({ isAdmin: false })
-          } else {
-            const newAdmin = await userToMakeAdmin.update({ isAdmin: true })
-          return res.status(200).send(newAdmin)
-          }
-        }
-        return res.status(401).send({error: "Your account is not admin"})
-      } catch (err) {
-        return next(err)
-    }
+  const userId = req.params.userId
+  const newAdminId = req.params.newAdminId
+  const Admin = await user_service.newAdmin(userId, newAdminId)
+  return res.send(Admin)
 }
 
 exports.user_find_by_id_get = async (req, res) => {
-    try {
-        const userToFind = await User.findByPk(req.params.id)
-        return res.status(200).send(userToFind)
-      } catch (err) {
-        return next(err)
-      }
+  const id = req.params.id
+  const foundUser = await user_service.findById(id)
+  return res.send(foundUser)
 }
 
 exports.user_create_post = async (req, res) => {
-    try {
-        const { name, lastName, email, uid } = req.body;
-        const NewUser = await User.findOrCreate({ where: { name, lastName, email, uid } })
-        return res.status(201).send(NewUser)
-      } catch (err) {
-        return next(err)
-      }
+  const { name, lastName, email, uid } = req.body;
+  const newUser = await user_service.createUser(name, lastName, email, uid)
+  return res.send(newUser)
 }
 
 exports.user_edit_put = async (req, res) => {
-    try {
-        const { name, lastName, uid, isAdmin } = req.body;
-    
-        const userToUpdate = await User.findByPk(req.params.id)
-        const updatedUser = await userToUpdate.update({ name, lastName, uid, isAdmin })
-        return res.status(200).send(updatedUser)
-      } catch (err) {
-        return next(err)
-      }
+  const id = req.params.id
+  const { name, lastName, uid, isAdmin } = req.body;
+  const editUser = await user_service.updateUser(id, name, lastName, uid, isAdmin )
+  return res.send(editUser)
 }
 
 exports.user_find_by_uid_get = async (req, res) => {
-    try {
-        const user = await User.findOne({ where: { uid: req.params.uid.toString() } })
-        return res.status(200).send(user)
-      } catch (err) {
-        next(err)
-      }
+  const uid = req.params.uid
+  const uidFound = await user_service.findByUid(uid)
+  return res.send(uidFound)
 }

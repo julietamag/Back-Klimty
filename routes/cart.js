@@ -8,13 +8,12 @@ const cart_controller = require("../controlers/cart_controller");
 // Get all carts
 // historial => findAll solo carritos con status false
 
-router.get("/", cart_controller.find_all_get);
+router
+    .get("/", cart_controller.find_all_get)
 
 // Get cart by ID
-router.get("/:userId", cart_controller.find_by_id_get);
-
-router.post("/:userId/update/:productId", cart_controller.update_cart_post);
-
-router.post("/:userId/create", cart_controller.create_new_cart_post);
+    .get("/:userId", cart_controller.find_by_id_get)
+    .post("/:userId/update/:productId", cart_controller.update_cart_post)
+    .post("/:userId/create", cart_controller.create_new_cart_post)
 
 module.exports = router;
