@@ -54,11 +54,12 @@ const deleteProduct = async (userId, productId) => {
       }
 }
 
-const addProduct = async (userId, name, price, description, category, photo_url) => {
-    try {
+const addProduct = async (userId, artistId, body ) => {
+  try {
+      const {name, price, description,category, photo_url} = body
         const AdminUser = await User.findByPk(userId)
         if (AdminUser.isAdmin === true) {
-          const newProduct = await Product.create({name, price, description,category, photo_url})
+          const newProduct = await Product.create({name, price, description,category, photo_url, artistId})
           return newProduct
         } else {
           return {error:"Your account is not admin"}
