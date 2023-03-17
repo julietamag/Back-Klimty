@@ -6,26 +6,27 @@ const artist_controller = require("../controlers/artist_controllers")
 
 // GET all info about artist by id
 // FRONT!! => deben enviar el id del artista solicitado por parametro
-router.get("/:id", artist_controller.find_by_id_get);
+router
+    .get("/:id", artist_controller.find_by_id_get)
 
 
 // GET all info about ALL artist 
-router.get("/", artist_controller.find_all_artist_get);
+    .get("/", artist_controller.find_all_artist_get)
 
 // SEED
-router.post("/", artist_controller.create_bulk_post);
+    .post("/", artist_controller.create_bulk_post)
 
 
 // ADMIN!! =>
 // DELETE AN ARTIST
-router.delete("/:userId/delete/:artistId", artist_controller.admin_by_artist_id_delete);
+    .delete("/:userId/delete/:artistId", artist_controller.admin_by_artist_id_delete)
 
 //  add AN ARTIST
 // FRONT! manden title, description en BODY :)
-router.post("/:userId/add", artist_controller.admin_add_artist_post);
+    .post("/:userId/add", artist_controller.admin_add_artist_post)
 
 // EDIT AN ARTIST
 // FRONT! manden title, description en BODY :)
-router.put("/:userId/edit/:artistId", artist_controller.admin_edit_by_artist_id_put);
+    .put("/:userId/edit/:artistId", artist_controller.admin_edit_by_artist_id_put)
 
 module.exports = router;
