@@ -6,12 +6,10 @@ const cors = require("cors");
 const { Artist, Product, Cart, User, Checkout } = require("./models");
 const routes = require("./routes");
 
-const corsOptions = {
-  origin: 'https://front-klimty.vercel.app/',
-  credentials: true,
-};
-
-app.use(cors(corsOptions)); 
+app.use(cors({
+	origin: 'https://front-klimty.vercel.app/',
+	credentials: true
+}))
 app.use(morgan("dev"));
 app.use(express.json());
 
