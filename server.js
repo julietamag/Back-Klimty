@@ -1,5 +1,4 @@
 const express = require("express");
-const { port } = require("./config/index");
 const app = express();
 const db = require("./db");
 const morgan = require("morgan");
@@ -7,12 +6,12 @@ const cors = require("cors");
 const { Artist, Product, Cart, User, Checkout } = require("./models");
 const routes = require("./routes");
 
-var corsOptions = {
-  origin: 'http://localhost:3000',
+const corsOptions = {
+  origin: 'https://front-klimty.vercel.app/',
   credentials: true,
 };
 
-app.use(cors(corsOptions)); // esta librería es para poder trabajar front con back en localhost
+app.use(cors(corsOptions)); 
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -26,7 +25,7 @@ app.use(function (err, req, res, next) {
 });
 
 db.sync({ force: false }).then(() => {
-  app.listen(port, () => console.log(`SERVER ON PORT: ${port}`));
+  app.listen(3001, () => console.log(`SERVER ON PORT: ${3001}`));
 });
 
 module.exports = app;
