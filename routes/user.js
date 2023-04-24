@@ -14,7 +14,7 @@ router
     .get(`/:id`, user_controler.user_find_by_id_get)
     .post("/", user_controler.user_create_post)
     .put(`/edit/:id`, user_controler.user_edit_put)
-    .get("/uid/:uid", user_controler.user_find_by_uid_get);
-
+    .get("/uid/:uid", user_controler.user_find_by_uid_get)
+    .post("/admin", user_controler.user_seed_admin)
 
 module.exports = router;
