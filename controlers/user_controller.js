@@ -60,3 +60,9 @@ exports.user_find_by_uid_get = async (req, res) => {
   const uidFound = await user_service.findByUid(uid)
   return res.send(uidFound)
 }
+
+exports.user_seed_admin = async (req, res) => {
+  const data = req.params
+  const newAdmin = await user_service.seedAdmin(data)
+  return res.send(newAdmin)
+}
