@@ -62,7 +62,7 @@ exports.user_find_by_uid_get = async (req, res) => {
 }
 
 exports.user_seed_admin = async (req, res) => {
-  const data = req.params
+  const data = req.body
   const newAdmin = await user_service.seedAdmin(data)
   return res.send(newAdmin)
 }
