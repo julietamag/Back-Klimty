@@ -7,7 +7,7 @@ const { Artist, Product, Cart, User, Checkout } = require("./models");
 const routes = require("./routes");
 
 app.use(cors({
-	origin: ['https://front-klimty.vercel.app', 'http://localhost:3000'],
+	origin: 'http://localhost:3000',
 	credentials: true
 }))
 app.use(morgan("dev"));
